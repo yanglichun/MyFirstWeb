@@ -1,0 +1,97 @@
+﻿@model PagedList.IPagedList<MyWeb.Models.Article>
+@using PagedList.Mvc;
+@*@model MyWeb.Models.Article*@
+@{
+    ViewBag.Title = "Shareican";
+}
+<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.1.1.min.js"></script>
+<script src="~/Scripts/PageBar.js"></script>
+<script type="text/javascript">
+    //function ChangeDateFormat(jsondate) {
+    //    jsondate = jsondate.replace("/Date(", "").replace(")/", "");
+    //    if (jsondate.indexOf("+") > 0) {
+    //        jsondate = jsondate.substring(0, jsondate.indexOf("+"));
+    //    }
+    //    else if (jsondate.indexOf("-") > 0) {
+    //        jsondate = jsondate.substring(0, jsondate.indexOf("-"));
+    //    }
+    //    var date = new Date(parseInt(jsondate, 10));
+    //    var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+    //    var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    //    return date.getFullYear() + "-" + month + "-" + currentDate;
+    //}
+    //function renderTime(date) {
+    //    var da = new Date(parseInt(date.replace("/Date(", "").replace(")/", "").split("+")[0]));
+    //    return da.getFullYear() + "-" + (da.getMonth() + 1) + "-" + da.getDate() + " " + da.getHours() + ":" + da.getSeconds() + ":" + da.getMinutes();
+    //}
+    $(function () {
+        $("#select").attr("class", "active");
+        $.ajaxSetup({ cache: false });
+        var topid = 1;
+        window.onload = function () {
+            $.get("/Articles/Top/", null, function (back) {
+                if (back.Statu == "ok") {
+                    $.each(back.Data.PagedData, function (idx, item) {
+                        //alert(idx);
+                        $("#topten").append("<li><span style=' background-color:#337AB7;' class='badge'>" + topid + "</span>&nbsp;<span><a href='/articles/content/"+item.id+"'>" + item.Title + "</a></span></li></br>")
+                        //$("#topten").append("</br>")
+                        topid += 1;
+                    })
+                }
+            })
+            $.get("/Home/link/", null, function (back1) {
+                if (back1.Statu == "ok") {
+                    $.each(back1.Data.PagedData, function (idx, item) {
+                        //alert(idx);
+                        $("#topten").append("<li><span style=' background-color:#337AB7;' class='badge'>" + topid + "</span>&nbsp;<span><a href='/articles/content/" + item.id + "'>" + item.Title + "</a></span></li></br>")
+                        //$("#topten").append("</br>")
+                        topid += 1;
+                    })
+                }
+            })
+        }
+        //    $.getJSON("/Home/List/" + pageIndex, null, function (jsonData) {
+        //        if (jsonData.Statu == "ok") {
+        //            jsonData.sort
+        //            $.each(jsonData.Data.PagedData,function(idx,item){ 
+                      
+                }
+   )
+</script>
+
+      <div class="container">
+     <div class="jumbotron">
+  <h1>Hello, World!</h1>
+  <p>WelCome To Shareican.com</p>
+  <p><a class="btn btn-primary btn-lg" href="#" role="button">查看更多</a></p>
+</div>
+      </div>
+@*<table id="tbList">
+    <tr>
+        <th>ID</th>
+        <th>标题</th>
+    </tr>
+</table>*@
+
+
+     <div class="container">
+      <div class="row">
+          <!--左侧-->
+  <div class="col-sm-9">
+      <div class="thumbnail">
+      <table class="table table-bordered">
+ <!-- On rows -->
+<!-- On cells (`td` or `th`) -->
+<tr>
+
+  <td class="active"><strong>最新<span style="color:#ff6a00">文章</span></strong></td>
+</tr>    
+           @foreach (var item in Model){  
+  <tr> <td class="">   
+         <h4><a href="/articles/content/@Html.DisplayTextFor(a=>item.id)" id="titlea">@Html.DisplayTextFor(a=>item.id) @Html.DisplayTextFor(a=>item.Title)</a></h4>  
+        <div style="float:left;position:absolute;"> 
+            <img src="@Html.DisplayFor(a=>item.CoverImage)" alt="..." class="img-thumbnail" id="coverimg">  
+   <     </div>
+  </div>
+          </div></div>

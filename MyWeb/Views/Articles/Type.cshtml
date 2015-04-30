@@ -1,0 +1,194 @@
+﻿@model PagedList.IPagedList<MyWeb.Models.Article>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Type";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*@{string s = Request.QueryString["id"];}*@
+<script src="~/Scripts/jquery-2.1.1.min.js"></script>
+<script src="~/Scripts/PageBar.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //$("#select").attr("class", "active");
+        $.ajaxSetup({ cache: false });
+        var tpid =@ViewBag.d
+        $("#select" + tpid).attr("class", "active");
+        $("#select").attr("class", "");
+        $.get("/Articles/times/" + s, null, function (back) {
+            //alert(back);
+
+        })
+        //loadPageList(1,tpid);
+        @*alert(@ViewBag.d);*@
+        //function loadPageList(pageIndex,tpid) {
+        //    $("#td2,#td1,#td3").css("display", "none");
+        //    $.getJSON("/Articles/List/" + pageIndex, { "tpid": tpid }, function (jsonData) {
+        //        if (jsonData.Statu == "ok") {
+        //            jsonData.sort
+        //            $.each(jsonData.Data.PagedData,function(idx,item){ 
+                       
+        //                ////根据Index索引 获取元素 
+        //                switch (idx)
+        //                {
+        //                    case 0:
+                               
+        //                            $("#td1").css("display", "block");
+        //                            $("#title1").html(item.Title);
+        //                            $("#ct1").html(item.ArticleContent.length > 210 ? item.ArticleContent.substring(0, 210) + "……" : item.ArticleContent);
+        //                            $("#link1,#linkbt1").attr("href", "/articles/content/" + item.id);
+        //                            $("#img1").attr("src", item.CoverImage);
+        //                            break;
+        //                    case 1:
+        //                        $("#td2").css("display", "block");
+        //                        $("#title2").html(item.Title);
+        //                        $("#ct2").html(item.ArticleContent.length > 210 ? item.ArticleContent.substring(0, 210) + "……" : item.ArticleContent);
+        //                        $("#link2,#linkbt2").attr("href", "/articles/content/" + item.id);
+        //                        $("#img2").attr("src", item.CoverImage);
+        //                        break;
+        //                    case 2:
+                             
+        //                        $("#td3").css("display", "block");
+        //                        $("#title3").html(item.Title);
+        //                        $("#ct3").html(item.ArticleContent.length > 210 ? item.ArticleContent.substring(0, 210) + "……" : item.ArticleContent);
+        //                        $("#link3,#linkbt3").attr("href", "/articles/content/" + item.id);
+        //                        $("#img3").attr("src", item.CoverImage);
+        //                        break;
+                          
+        //                }
+        //            }); 
+        //            //生成页码条
+        //            makePageBar(loadPageList, document.getElementById("pageBar"), jsonData.Data.PageIndex, jsonData.Data.PageCount, 8, jsonData.Data.RowCount);
+        //        }
+        //    });
+        //}
+
+    })
+
+</script>
+
+     <div class="container">
+      <div class="row">
+          <!--左侧-->
+  <div class="col-sm-9">
+      <div class="thumbnail">
+      <table class="table table-bordered">
+ <!-- On rows -->
+<!-- On cells (`td` or `th`) -->
+<tr>
+  <td class="active"><strong>最新<span style="color:#ff6a00">文章</span></strong></td>
+</tr>    
+            @foreach (var item in Model){  
+  <tr> <td class="">   
+         <h4><a href="/articles/content/@Html.DisplayTextFor(a=>item.id)" id="titlea">@Html.DisplayTextFor(a=>item.Title)</a></h4>  
+        <div style="float:left;position:absolute;"> 
+            <img src="@Html.DisplayFor(a=>item.CoverImage)" alt="..." class="img-thumbnail" id="typeid">  
+   </div>
+    <div class="col-sm-9" id="article">
+        <p id="ct">
+            @{
+                string s = Html.DisplayTextFor(a => item.ArticleContent).ToString();
+                string strText = System.Text.RegularExpressions.Regex.Replace(s, "<[^>]+>", "");
+                strText = System.Text.RegularExpressions.Regex.Replace(strText, "&[^;]+;", "");
+              if(strText .Length>=150)
+              {
+                  string n = strText.Substring(0, 150);
+                  MvcHtmlString sd = new MvcHtmlString(n);
+                  @sd
+              }
+              else{
+                  MvcHtmlString sq = new MvcHtmlString(strText);
+                  @sq
+              }
+              } ……
+      </p>
+    </div>
+         <div style="float:left;position:relative;margin-top:15px;margin-left:230px;">
+             <span>作者：Listen</span>&nbsp
+             <span>&nbsp 时间：@Html.DisplayTextFor(a=>item.CreatDate)</span>
+             <span>&nbsp 分类： @{ string d = Html.DisplayTextFor(q => item.TypeID).ToString();
+                  switch (Convert.ToInt32(d))
+                               { case 1:
+                                       string hlw="互联网";
+                                            @hlw
+                                            break;
+                                        case 2:
+                                          string lanq="篮球";
+                                            @lanq
+                                            break;
+                                        case 3:
+                                           string game="戏游";
+                                            @game
+                                            break;
+                                        case 4:
+                                          string resource="资源";
+                                            @resource
+                                            break;
+                                        case 5:
+                                          string txt="益文";
+                                            @txt
+                                            break;
+                                        case 6:
+                                           string program="编程";
+                                            @program
+                                            break;
+                                        case 7:
+                                         string funny="乐子";
+                                            @funny
+                                            break;
+                               }
+                               }
+             </span>
+         </div>
+          <div style="float:right;position:relative">
+              <a href="articles/content/@Html.DisplayTextFor(a=>item.id)" type="button" class="btn btn-info" style="float:right">查看全文</a>  
+              </div>
+       </td></tr>
+           }
+
+
+         @* <tr id="td1"> <td class="">   
+         <a href="" id="link1"><h4 id="title1"></h4></a>
+        <div style="float:left;position:absolute;"> <img src="" alt="..." class="img-thumbnail" id="img1">  
+   </div>
+    <div class="col-sm-9" id="article"><p id="ct1">
+      </p></div>
+         <div style="float:left;position:relative;margin-top:15px;margin-left:230px;"><span>作者:Listen</span>&nbsp<span>&nbsp 时间:</span><span>&nbsp 分类：随笔</span></div>
+          <div style="float:right;position:relative"><a href="" id="linkbt1" type="button" class="btn btn-info" style="float:right">查看全文</a>  
+              </div>
+       </td></tr>
+
+         <tr id="td2"> <td class="">   
+         <a href="" id="link2"><h4 id="title2"></h4></a>
+        <div style="float:left;position:absolute;"> <img  src="" alt="..." class="img-thumbnail" id="img2">  
+   </div>
+    <div class="col-sm-9" id="article2"><p id="ct2">
+      </p></div>
+         <div style="float:left;position:relative;margin-top:15px;margin-left:230px;"><span>作者:Listen</span>&nbsp<span>&nbsp 时间:</span><span>&nbsp 分类：随笔</span></div>
+          <div style="float:right;position:relative"><a href="articles/content/" type="button" class="btn btn-info" style="float:right">查看全文</a>  
+              </div>
+       </td></tr>
+
+          <tr id="td3"> <td class="">   
+         <a href="" id="link3"><h4 id="title3"></h4></a> 
+        <div style="float:left;position:absolute;"> <img  src="" alt="..." class="img-thumbnail" id="img3">  
+   </div>
+    <div class="col-sm-9" id="article3"><p id="ct3">
+           
+      </p></div>
+         <div style="float:left;position:relative;margin-top:15px;margin-left:230px;"><span>作者:Listen</span>&nbsp<span>&nbsp 时间:</span><span>&nbsp 分类：随笔</span></div>
+          <div style="float:right;position:relative"><a href="articles/content/" type="button" class="btn btn-info" style="float:right">查看全文</a>  
+              </div>
+       </td></tr>*@
+
+</table>
+          <center>
+              <div>
+              @Html.PagedListPager(Model, page => Url.Action("Type", new { page }))
+                </div>
+          </center> 
+          </div>
+   @*   <div id="pageBar" class="pagination">
+
+</div>*@
+  </div>
+          </div></div>
