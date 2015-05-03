@@ -1,89 +1,27 @@
-﻿
+﻿@using MyWeb.Models;
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="favicon.ico" type="image/x-icon" rel=icon>
-     <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <!-- Bootstrap -->
-    <link href="~/Scripts/bootstrap.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-     
-      <style type="text/css">
-          body { padding-top: 60px; 
-                 background-color: #fff;
-          }
-          /*.carousel-inner .item img {
-              width:880px;
-              height:400px;
-              margin-left:200px;
-              margin-right:200px;
-          }*/
-          .col-sm-9 #coverimage,#search,#typeid{
-           width:203px;
-           height:152px;
-           margin-right:18px;
-          }
-          .col-sm-9 div #article{
-            height:138px;
-            overflow:hidden;
-            float:left;
-            position:relative;
-            margin-left:215px;
-          }
-          .center-block {
-           display: block;
-           margin-left: auto;
-           margin-right: auto;
-          
-}
-          #title {
-          text-align:center
-          }
-            #pageBar {
-        margin:10px auto;
-        /*width:550px;*/
-        text-align:center;
-        /*border:1px solid #0094ff;*/
-    }
-          #bottom ul{
-          list-style:none; 
-          }
-           #bottom ul li,#contact li{
-        float:left;
-          }
-          #topten,#ulike{
-         list-style-type:none
-          }
-          #titlea:hover {
- text-decoration: none;
- color:#f00;
-          }
-          #top {
-          position: fixed;bottom:20px;right:30px;font-size:15px;
-          }
-          #topimg {
-          height:22px;width:33px;
-          }
-      </style>
-
-    <title>@ViewBag.Title</title>
+      <meta name="baidu-site-verification" content="yf7qFp0mWQ" />
+      <title>@ViewBag.Title</title>
+        @foreach (WebInfo a in ViewData["tit"] as List<WebInfo>)
+  { 
+    <meta name="keywords" content="@a.Keywords" />
+    <meta name="description" content="@a.Description" />
+  }
+    <link href="~/Scripts/bootstrap.min.css" rel="stylesheet"> 
+    <link href="favicon.ico" type="image/x-icon" rel=icon>
+    <link href="~/Content/css/share.css" rel="stylesheet" />
+    
 @*    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")*@
 </head>
 <body>
     <nav class="navbar-default  navbar-fixed-top nav">
   <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only"></span>
@@ -91,20 +29,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><p style="color:#0094ff">Shareican.com</p></a>
+      <a class="navbar-brand" href="http://www.shareican.com/"><p id="logo">Shareican.com</p></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li id="select"><a href="/home">首页</a></li>
-        <li id="select1"><a href="/articles/type/1">I T</a></li>
-          <li id="select2"><a href="/articles/type/2">篮球</a></li>
-          <li id="select3"><a href="/articles/type/3">戏游</a></li>
-          <li id="select4"><a href="/articles/type/4">资源</a></li>
-          <li id="select5"><a href="/articles/type/5">益文</a></li>
-          <li id="select6"><a href="/articles/type/6">编程</a></li>
-          <li id="select7"><a href="/articles/type/7">乐子</a></li>
+          @foreach (var at in ViewData["articleType"] as List<ArticleType>)
+          {
+             <li id="@at.id"><a href="/articles/type/@at.id">@at.TypeName</a></li>
+          }
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">更多 <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -132,22 +67,19 @@
   </div><!-- /.container-fluid -->
 </nav>
     @RenderBody()
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
+@*    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)*@
         <!--footer-->
       <footer class="footer ">
 
-  <div class="text-center">
-    <span>Thank you for Coming</span>
+  <div class="text-center"> <img src="~/Content/Images/logo.png" id="blogo">
+    <span><h4>Thank You</h4></span>
   </div>
          
   <div class="container">
     <div class="row footer-top">
       <div class="col-sm-2">
-        <h4>
-          <img src="">
-            Shareican
-        </h4>
+        
       </div>
       <div class="col-sm-10">
         <div class="">
@@ -159,7 +91,7 @@
             <h5>联系方式</h5>
             <ul class="list-unstyled" id="contact">
               <li><a href="#" title="" target="_blank">新浪微博</a>|</li>
-              <li><a href="#">电子邮件</a></li>
+              <li><a href="mailto:646490547@qq.com">电子邮件</a></li>
             </ul>
           </div>
         </div>
@@ -177,36 +109,6 @@
         <img src="/Content/Images/top.png" id="topimg"/></a>
     <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
     <script src="/Scripts/bootstrap.min.js"></script>
-    <script src="/Scripts/jquery-2.1.1.min.js"></script>
-     <script type="text/javascript">
-         $(function () {
-             //当滚动条的位置处于距顶部100像素以下时，跳转链接出现，否则消失 
-                 $("#top").hide();
-                 $(window).scroll(function () {
-                     if ($(window).scrollTop() > 100) {
-                         $("#top").fadeIn(500);
-                     }
-                     else {
-                         $("#top").fadeOut(500);
-                     }
-                 });
-                 //当点击跳转链接后，回到页面顶部位置 
-                 $("#top").click(function () {
-                     $('body,html').animate({ scrollTop: 0 }, 100);
-                     return false;
-                 });
-             //获取友链
-                 $.get("/Home/link/", null, function (back1) {
-                     if (back1.Statu == "ok") {
-                         $.each(back1.Data.PagedData, function (idx, item) {
-                             $("#link").append("<li><span><a href='" + item.LinkUrl + "'>" + item.LinkName + "</a>|</span></li>")
-                             //$("#topten").append("</br>")
-                             
-                         })
-                     }
-                 })
-
-         });
-      </script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cspan id='cnzz_stat_icon_1254922138'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1254922138%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
 </body>
 </html>

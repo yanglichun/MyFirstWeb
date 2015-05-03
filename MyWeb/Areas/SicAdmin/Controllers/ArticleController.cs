@@ -111,7 +111,52 @@ namespace MyWeb.Areas.SicAdmin.Controllers
             return true;
         }
 
-    
+        public void EditImageUpLoad(int id)
+        {
+            
+            //定义错误消息
+            string msg = "";
+            //接受上传文件
+            HttpPostedFileBase hp = Request.Files["upImage"];
+            if (hp == null)
+            {
+                msg = "请选择文件.";
+                //return Json(msg);
+            }
+            //获取上传目录 转换为物理路径
+            string uploadPath = Server.MapPath("~/Areas/SicAdmin/Content/images/");
+            //获取文件名
+            string fileName = DateTime.Now.Ticks.ToString() + System.IO.Path.GetExtension(hp.FileName);
+            //获取文件大小
+            long contentLength = hp.ContentLength;
+            //文件不能大于1M
+            if (contentLength > 1024 * 1024)
+            {
+                msg = "文件大小超过限制要求.";
+            }
+            if (!checkFileExtension(fileName))
+            {
+                msg = "文件为不可上传的类型.";
+            }
+            //保存文件的物理路径
+            string saveFile = uploadPath + fileName;
+            try
+            {
+                //保存文件
+                hp.SaveAs(saveFile);
+                msg = "/Areas/SicAdmin/Content/images/" + fileName;
+            }
+            catch
+            {
+                msg = "上传失败.";
+            }
+            ViewBag.img = msg;
+
+            string cm = HttpUtility.UrlEncode(msg, System.Text.Encoding.BigEndianUnicode);
+            Areas.SicAdmin.Controllers.PageHelper.WriteJsMsg("放心，上传没问题", "/SicAdmin/Article/Edit/"+id+"?img=" + cm);
+            //Areas.SicAdmin.Controllers.AjaxMsgHelper.AjaxMsg("", "d", msg, "/SicAdmin/Article/Create");
+            //return null;
+        }
 
 
         //
@@ -138,6 +183,7 @@ namespace MyWeb.Areas.SicAdmin.Controllers
 
         public ActionResult Edit(int id = 0)
         {
+            ViewBag.id = id;
             Article article = db.Articles.Find(id);
             if (article == null)
             {
@@ -156,6 +202,7 @@ namespace MyWeb.Areas.SicAdmin.Controllers
 
         public ActionResult Edit(Article article)
         {
+
             if (ModelState.IsValid)
             {
                 db.Entry(article).State = EntityState.Modified;

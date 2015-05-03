@@ -15,6 +15,11 @@ namespace MyWeb.Controllers
 
         public ActionResult Content(int id = 0)
         {
+            List<WebInfo> tit = db.WebInfoes.Where(i => i.id == 1).ToList();
+            ViewData["tit"] = tit;
+            List<ArticleType> articleType = db.ArticleTypes.OrderBy(at => at.id).ToList();
+            ViewData["articleType"] = articleType;
+            //
             Article article = db.Articles.Find(id);
             var model = db.Articles;
             article.AgreeTimes += 1;
@@ -23,6 +28,10 @@ namespace MyWeb.Controllers
 
         public ActionResult Search(int page=1)
         {
+            List<WebInfo> tit = db.WebInfoes.Where(i => i.id == 1).ToList();
+            ViewData["tit"] = tit;
+            List<ArticleType> articleType = db.ArticleTypes.OrderBy(at => at.id).ToList();
+            ViewData["articleType"] = articleType;
             string ss = Request.QueryString["s"].ToString();
             var sc = db.Articles.Where(a => a.Title.Contains(ss)||a.ArticleContent.Contains(ss)).OrderByDescending(s => s.id).ToPagedList(page, 8);
             return View(sc);
@@ -47,6 +56,10 @@ namespace MyWeb.Controllers
         public ActionResult Type(int id,int page=1)
         {
 
+            List<WebInfo> tit = db.WebInfoes.Where(i => i.id == 1).ToList();
+            ViewData["tit"] = tit;
+            List<ArticleType> articleType = db.ArticleTypes.OrderBy(at => at.id).ToList();
+            ViewData["articleType"] = articleType;
             var model = db.Articles.Where(a => a.TypeID == id).OrderByDescending(s => s.id).ToPagedList(page, 5);
             ViewBag.d = id;
             //var model = db.ArticleTypes;

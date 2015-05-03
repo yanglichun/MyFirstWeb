@@ -16,18 +16,36 @@ namespace MyWeb.Controllers
 
         public ActionResult Index(int page=1)
         {
-            
+            //title/keywords
+            List<WebInfo> tit = db.WebInfoes.Where(id => id.id == 1).ToList();
+            ViewData["tit"] = tit;
+            List<ArticleType> articleType = db.ArticleTypes.OrderBy(at => at.id).ToList();
+            ViewData["articleType"] = articleType;
+            //头条
+            List<Article> atc = db.Articles.Where(s => s.Sort == 1).ToList();
+            ViewData["atc"] = atc;
+            //短语
+            List<Announcement> ann = db.Announcements.Where(a => a.Sort == 1).ToList();
+            ViewData["ann"] = ann;
+
+
             //ViewData["funHtml"] = new MvcHtmlString("HTML代码");
             var model =db.Articles.OrderByDescending(s=>s.id).ToPagedList(page,8);
             return View(model);
         }
-        public ActionResult Create()
+        public ActionResult Create(int page=1)
         {
-            return View(db.WebInfoes.ToList());
+            var model = db.Articles.OrderByDescending(s => s.id).ToPagedList(page, 8);
+            return View(model);
         }
         public ActionResult Login()
         {
             return View();
+        }
+
+        public ActionResult Right()
+        {
+            return PartialView();
         }
 
         public ActionResult Link()

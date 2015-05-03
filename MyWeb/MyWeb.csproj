@@ -237,11 +237,13 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\labs.css" />
     <Content Include="Content\css\pill.css" />
+    <Content Include="Content\css\share.css" />
     <Content Include="Content\css\site.css" />
     <Content Include="Content\css\templatemo_style.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Images\3.jpg" />
     <Content Include="Content\Images\bi.jpg" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\top.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -575,7 +577,9 @@
     <Content Include="KindEditor\upload\upload_json.ashx" />
     <Content Include="Areas\SicAdmin\Views\Article\Edit.cshtml" />
     <Content Include="Areas\SicAdmin\Views\Article\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\webc.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\index.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -601,7 +605,9 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\PageBar.js" />
+    <Content Include="Scripts\rotate.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\favicon.ico" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -623,12 +629,15 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Articles\Type.cshtml" />
     <Content Include="Views\Articles\Search.cshtml" />
+    <Content Include="Views\Home\Right.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\SicAdmin\Content\Images\actives\" />
     <Folder Include="Areas\SicAdmin\Views\Article\Models\" />
+    <Folder Include="Content\Files\" />
     <Folder Include="KindEditor\attached\" />
+    <Folder Include="KindEditor\upload\Files\" />
     <Folder Include="Views\SicAdmin\" />
   </ItemGroup>
   <ItemGroup>

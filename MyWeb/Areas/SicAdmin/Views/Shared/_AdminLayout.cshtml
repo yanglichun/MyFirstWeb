@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@{
+    if(Session["admin"]!=null)
+    {
+        Html.ActionLink("/sicadmin", "sicadmin");
+    }
+    else{
+        MyWeb.Areas.SicAdmin.Controllers.PageHelper.WriteJsMsg("你百度玩去吧","http://baidu.com");
+    }
+    }
+<!DOCTYPE html>
 <html lang="cn">
   <head>
     <meta charset="utf-8">

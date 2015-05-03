@@ -13,6 +13,7 @@ namespace MyWeb.Areas.SicAdmin.Controllers
 
         public ActionResult Index()
         {
+            
             return View();
         }
 
